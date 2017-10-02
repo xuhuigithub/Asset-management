@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>table database</title>
 		<!-- Bootstrap -->
 		<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     	<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-		<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet"/>
-		<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    	<script src="static/js/bootstrap.min.js"></script>
+		<link href="static/css/jquery.dataTables.min.css" rel="stylesheet"/>
+		<script src="static/js/jquery.dataTables.min.js"></script>
 		<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
 		<link href="https://cdn.bootcss.com/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css" rel="stylesheet">
 		<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.js"></script>
 		<script>
+//			function dataTable_assist(){
+//				var tmplist = new Array();
+//				$("#myTable thead tr th").each(function(){
+//					var Width = $(this).attr("sWidth")
+//					var Searchable = $(this).attr("bSearchable")
+//					var Sortable = $(this).attr("bSortable")
+//					tmplist.push({ sWidth: Width, bSearchable: Searchable, bSortable: Sortable })
+//				});
+//				return tmplist
+//			};
+		//呵呵
 			$(document).ready(function(){
-    			$('#myTable').DataTable();
+//				var tmplist = dataTable_assist();
+    			$('#myTable').DataTable({
+    				'bSort': false,	
+		            "scrollY": "500px",
+		            "scrollCollapse": false,
+		            "info":           true,
+		            "paging":         true
+    			});
 			});
 		</script>
 	</head>
@@ -54,10 +73,11 @@
 				<table id="myTable" class="table-striped table-hover table-condensed">
 					<thead>
 						<tr>
-							<th>name</th>
-							<th>ip_addr</th>
-							<th>ipmi_addr</th>
-							<th>password</th>
+							<th data-sWidth="20%" data-bSearchable=true data-bSortable=false>name</th>
+							<th data-sWidth="20%" data-bSearchable=true data-bSortable=false>ip_addr</th>
+							<th data-sWidth="20%" data-bSearchable=true data-bSortable=false>ipmi_addr</th>
+							<th data-sWidth="20%" data-bSearchable=true data-bSortable=false>password</th>
+							<th data-sWidth="20%" data-bSearchable=true data-bSortable=false>options</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -67,6 +87,19 @@
 								<td target="ip_addr">{{ host.ip_addr }}</td>
 								<td target="ipmi_addr">{{ host.ipmi_addr }}</td>
 								<td target="password">{{ host.password }}</td>
+								<td>
+									<div class="btn-group">
+									  <button type="button" class="btn btn-info">Options</button>
+									  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    <span class="caret"></span>
+									  </button>
+									  <ul class="dropdown-menu">
+									    <li><a href="#" onclick="edit_Record('1')">Edit</a></li>
+								    	<li role="separator" class="divider"></li>
+									    <li><a href="#" onclick="delete_Record(1)">Delete</a></li>
+									  </ul>
+									</div>
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -88,19 +121,19 @@
 		        <form id="modal_form">
 				  <div class="form-group">
 				    <label for="hostinfo_name">Host Name</label>
-				    <input type="text" class="form-control" name="name" id="hostinfo_name">
+				    <input type="text" class="form-control" name="name" id="hostinfo_name" required="required">
 				  </div>
 				  <div class="form-group">
 				    <label for="hostinfo_ip_addr">IP</label>
-				    <input type="text" class="form-control" name="ip_addr" id="hostinfo_ip_addr">
+				    <input type="text" class="form-control" name="ip_addr" id="hostinfo_ip_addr" required="required">
 				  </div>
 				  <div class="form-group">
 				    <label for="hostinfo_ipmi_addr">IPMI</label>
-				    <input type="text" class="form-control" name="ipmi_addr" id="hostinfo_ipmi_addr">
+				    <input type="text" class="form-control" name="ipmi_addr" id="hostinfo_ipmi_addr" required="required">
 				  </div>
 				  <div class="form-group">
 				    <label for="hostinfo_password">Password</label>
-				    <input type="text" class="form-control" name="name" id="hostinfo_password">
+				    <input type="text" class="form-control" name="name" id="hostinfo_password" required="required">
 				  </div>
 		        </form>
 		      </div>
@@ -115,19 +148,16 @@
 	</body>
 	<script>
 		function add_host(){
-			var name = $("#hostinfo_name").val();
-			var ip_addr = $("#hostinfo_ip_addr").val();
-			var ipmi_addr = $("#hostinfo_ipmi_addr").val();
-			var password = $("#hostinfo_password").val();
+			var name = $("#hostinfo_name").val()
+			var ip_addr = $("#hostinfo_ip_addr").val()
+			var ipmi_addr = $("#hostinfo_ipmi_addr").val()
+			var password = $("#hostinfo_password").val()
 			$.ajax({
 				url: 'add_host',
 				type: "POST",
 				data: {'name':name,'ip_addr':ip_addr,'ipmi_addr':ipmi_addr,'password':password},
 				success: function(data){
-					console.log(data);
-				},
-				error: function(data){
-					alert(data.msg);
+					location.reload();
 				}
 			});
 		};
