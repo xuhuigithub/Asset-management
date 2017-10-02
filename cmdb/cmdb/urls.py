@@ -17,12 +17,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from . import host
-from hostinfo import views
+from hostinfo import views as hostinfo_views
+from hostinfo.views import Host
 
+MyHost = Host()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^hostinfo$',host.get_all),
     url(r'^update$',host.update_one),
-    url(r'^table$',views.index),
-    url(r'^add_host$',views.add_host),
+    url(r'^table$',hostinfo_views.index),
+    url(r'^add_host$',MyHost.add),
+    url(r'^del_host$',MyHost.delete),
+    url(r'^update_host$',MyHost.update),
 ]
