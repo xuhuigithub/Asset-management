@@ -19,6 +19,7 @@ from django.contrib import admin
 from . import host
 from hostinfo import views as hostinfo_views
 from hostinfo.views import Host
+from userinfo import views as userinfo_views
 
 MyHost = Host()
 urlpatterns = [
@@ -26,7 +27,8 @@ urlpatterns = [
     url(r'^hostinfo$',host.get_all),
     url(r'^update$',host.update_one),
     url(r'^table$',hostinfo_views.index),
-    url(r'^add_host$',MyHost.add),
-    url(r'^del_host$',MyHost.delete),
-    url(r'^update_host$',MyHost.update),
+    url(r'^add_host$',MyHost.Add),
+    url(r'^del_host$',MyHost.Delete),
+    url(r'^update_host$',MyHost.Update),
+    url(r'^xuhui_delete$',userinfo_views.del_test)
 ]
