@@ -6,9 +6,9 @@ CSRF（Cross-site request forgery跨站请求伪造，也被称为“one click a
 django自动加载防CSRF的中间件（默认）
 在settings.py 中开启
 ```python
-		'django.middleware.common.CommonMiddleware',
-	    'django.middleware.csrf.CsrfViewMiddleware',  <--这个
-	    'django.contrib.auth.middleware.AuthenticationMiddleware',
+'django.middleware.common.CommonMiddleware',
+'django.middleware.csrf.CsrfViewMiddleware',  <--这个
+'django.contrib.auth.middleware.AuthenticationMiddleware',
 ```
 
 ### CSRF只针对POST请求 所以为了更加安全，请在你的代码中加入判断
