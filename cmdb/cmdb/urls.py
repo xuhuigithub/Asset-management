@@ -18,17 +18,18 @@ from django.conf.urls import url
 from django.contrib import admin
 from . import host
 from hostinfo import views as hostinfo_views
-from hostinfo.views import Host
 from userinfo import views as userinfo_views
 
-MyHost = Host()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^hostinfo$',host.get_all),
     url(r'^update$',host.update_one),
     url(r'^table$',hostinfo_views.index),
-    url(r'^add_host$',MyHost.Add),
-    url(r'^del_host$',MyHost.Delete),
-    url(r'^update_host$',MyHost.Update),
-    url(r'^xuhui_delete$',userinfo_views.del_test)
+    url(r'^add_host$',hostinfo_views.Add_test),
+    url(r'^del_host$',hostinfo_views.Delete),
+    url(r'^update_host$',hostinfo_views.Update),
+    url(r'^user_login$', userinfo_views.Login),
+    url(r'^test_login$', userinfo_views.Login_t),
+    url(r'^test_logout$', userinfo_views.Logout_t),
+    url(r'^user_logout$', userinfo_views.Logout),
 ]
