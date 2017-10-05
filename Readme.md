@@ -36,7 +36,7 @@ django自动加载防CSRF的中间件（默认）
 
 #### ajax
 ```JavaScript
-		jQuery(document).ajaxSend(function(event, xhr, settings) {
+	jQuery(document).ajaxSend(function(event, xhr, settings) {
         function getCookie(name) {
             var cookieValue = null;
             if (document.cookie && document.cookie != '') {
@@ -74,7 +74,7 @@ django自动加载防CSRF的中间件（默认）
             //推荐下边这种做法，将ajax写在模板中，因为cookie不靠谱
 
         }
-        });
+    });
 ```
 
 ## session
@@ -85,8 +85,8 @@ django自动加载防CSRF的中间件（默认）
 > cookie 是保存在客户端的，用于存放客户的一些临时信息到硬盘上
 
 ### django中设置session 过期时间(https://docs.djangoproject.com/en/1.11/topics/http/sessions/#using-sessions-in-views)
-	另外一种方法:
-		在settings.py中进行全局设定:
+另外一种方法:
+在settings.py中进行全局设定:
 ```python
 SESSION_COOKIE_AGE = 60 * 30 # 30分钟
 SESSION_SAVE_EVERY_REQUEST = False
