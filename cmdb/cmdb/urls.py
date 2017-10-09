@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^update_host$',hostinfo_views.Update),
     url(r'^user_login$', userinfo_views.Login),
     url(r'^test_login$', userinfo_views.Login_t),
+    url(r'^login$', userinfo_views.Login_g),
     url(r'^test_logout$', userinfo_views.Logout_t),
     url(r'^user_logout$', userinfo_views.Logout),
 ]
