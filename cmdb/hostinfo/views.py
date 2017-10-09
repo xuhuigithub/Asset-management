@@ -9,9 +9,9 @@ from django.views.decorators.csrf import requires_csrf_token,csrf_exempt,csrf_pr
 from cmdb.utility import Filtered_var,common_api
 from functools import wraps
 from userinfo.models import Group
+from userinfo.utility import login_required
 
-
-
+@login_required('/login')
 def index(request):
   context = {}
   host_list = Hostinfo.objects.all()
