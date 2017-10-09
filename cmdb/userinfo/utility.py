@@ -47,3 +47,12 @@ def login_required(loginurl):
         return HttpResponseRedirect(loginurl)
     return wrapper
   return outer
+
+
+def is_logined(request,token):
+  try:
+    request.session[token]
+  except KeyError:
+    return False
+  else:
+    return True
